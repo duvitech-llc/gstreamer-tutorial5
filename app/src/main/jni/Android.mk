@@ -6,7 +6,6 @@ LOCAL_MODULE    := tutorial-5
 LOCAL_SRC_FILES := tutorial-5.c
 LOCAL_SHARED_LIBRARIES := gstreamer_android
 LOCAL_LDLIBS := -llog -landroid
-include $(BUILD_SHARED_LIBRARY)
 
 // GSTREAMER_ROOT_ANDROID := PUTYOURGSTREAMERLIBRARYPATH
 
@@ -27,6 +26,13 @@ GSTREAMER_ROOT        := $(GSTREAMER_ROOT_ANDROID)/x86_64
 else
 $(error Target arch ABI not supported: $(TARGET_ARCH_ABI))
 endif
+
+LOCAL_C_INCLUDES := $(GSTREAMER_ROOT)/include
+LOCAL_C_INCLUDES += $(GSTREAMER_ROOT)/include/gstreamer-1.0
+LOCAL_C_INCLUDES += $(GSTREAMER_ROOT)/include/glib-2.0
+LOCAL_C_INCLUDES += $(GSTREAMER_ROOT)/lib/glib-2.0/include
+
+include $(BUILD_SHARED_LIBRARY)
 
 GSTREAMER_NDK_BUILD_PATH  := $(GSTREAMER_ROOT)/share/gst-android/ndk-build/
 include $(GSTREAMER_NDK_BUILD_PATH)/plugins.mk
